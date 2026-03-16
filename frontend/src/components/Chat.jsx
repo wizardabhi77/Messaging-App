@@ -1,0 +1,101 @@
+import { useParams } from "react-router-dom";
+import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+
+export default function Chat() {
+
+    const { chatId, rid } = useParams();
+
+    const [text, setText] = useState("");
+    const [messages, setMessages] = useState([]);
+
+    const [receiver, setReceiver] = useState(null);
+
+    const token = localStorage.getItem("token");
+
+    const navigate = useNavigate();
+
+    useEffect(()=> {
+
+        async function getReceiver() {
+            
+            const res = await fetch(`http://localhost:5000/reciever/${rid}`, {
+                method: "GET",
+                headers: {
+                    Authorization: token,
+                    "Content-Type": "application/json"
+                }
+            });
+            
+            const data = await res.json();
+
+            
+            setReceiver(data);
+        }
+
+        getReceiver();
+
+        async function getAllMessages() {
+
+            const res = await fetch(`http://localhost:5000/chat/${chatId}`,{
+                method: "GET",
+                headers: {
+                    Authorization: token,
+                    "Content-Type": "application/json"
+                }
+            });
+
+            const data = await res.json();
+
+            setMessages(data);
+        }
+
+        getAllMessages();
+    }, [chatId, token, rid])
+
+    async function handleMessage(e) {
+        e.preventDefault();
+
+        const res = await fetch(`http://localhost:5000/message/${chatId}`,{
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: token
+            },
+            body: JSON.stringify({
+                text: text
+            })
+        });
+
+        const data = await res.json();
+
+        setMessages((prev) => [...prev, data]);
+
+        setText("");
+  
+    }
+    return (
+        <div>
+            <h1>{receiver? receiver.username : "Loading..."}</h1>
+            <ul>
+                {messages.map((message)=> {
+                return (
+                    <li key={message.id}>
+                        <h3>{message.text}</h3>
+                        <p>sent By: {message.userId != rid ? "you" : receiver.username} at {new Date(message.sentAt).toLocaleTimeString()}</p>
+                    </li>
+                )
+                })}
+            </ul>
+            
+            <form onSubmit={handleMessage}>
+                <input type="text" name="text" value={text} onChange={(e)=> setText(e.target.value)}/>
+                <button>SEND</button>
+            </form>
+
+                <button onClick={()=> navigate("/home")}>BACK TO HOME</button>
+        </div>
+        
+        
+    )
+}

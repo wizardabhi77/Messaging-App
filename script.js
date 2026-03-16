@@ -20,7 +20,7 @@ async function createMessage(text, uid, chatId){
         data: {
             text: text,
             userId: uid,
-            chatId: chatId
+            chatId: Number(chatId)
         }
     });
 
@@ -29,24 +29,89 @@ async function createMessage(text, uid, chatId){
 
 async function createChat(uid1, uid2){
 
-    const chat = await prisma.chat.create({
-        data: {
-            user1Id: uid1,
-            user2Id: uid2
+    uid2 = Number(uid2);
+
+    const user1 = Math.min(uid1, uid2);
+    const user2 = Math.max(uid1, uid2);
+
+    const chat = await prisma.chat.findUnique({
+        where: {
+            user1Id_user2Id: {
+                user1Id : user1,
+                user2Id : user2
+            }
+            
         }
     });
 
-    return chat;
+    if(chat){
+        return chat;
+    }
+
+    const newChat = await prisma.chat.create({
+        data: {
+            user1Id: user1,
+            user2Id: user2
+        }
+    });
+
+    return newChat;
+}
+
+async function findUser(username) {
+
+    const user = await prisma.users.findUnique({
+        where: {
+            username: username
+        }
+    });
+
+    return user;
+}
+
+async function findAllUsers(){
+
+    const users = await prisma.users.findMany();
+
+    return users;
+}
+
+async function findUserById(userId){
+
+    const user = await prisma.users.findUnique({
+        where: {
+            id: Number(userId)
+        },
+        include: {
+            messages : true
+        }
+    });
+
+    return user;
 }
 
 async function findChatMessages(chatId) {
     const messages = await prisma.messages.findMany({
         where: {
-            chatId : chatId,
+            chatId : Number(chatId),
         }
     });
 
     return messages;
+}
+
+async function updateUser(userId, username, password) {
+    const user = await prisma.users.update({
+        where : {
+            id : userId
+        },
+        data: {
+            username : username,
+            password : password
+        }
+    });
+
+    return user;
 }
 
 export default {
@@ -54,4 +119,8 @@ export default {
     createMessage,
     createChat,
     findChatMessages,
+    findUser,
+    findUserById,
+    findAllUsers,
+    updateUser
 }
