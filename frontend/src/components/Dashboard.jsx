@@ -13,7 +13,7 @@ export default function Dashboard () {
 
             const token = localStorage.getItem("token");
             
-            const res = await fetch("http://localhost:5000/user",{
+            const res = await fetch("https://messaging-app-zb2w.onrender.com/user",{
                 method: "GET",
                 headers : {
                     "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export default function Dashboard () {
 
         const token = localStorage.getItem("token");
 
-        const res = await fetch("http://localhost:5000/users",{
+        const res = await fetch("https://messaging-app-zb2w.onrender.com/users",{
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -53,7 +53,7 @@ export default function Dashboard () {
 
         const token = localStorage.getItem("token");
 
-        const res = await fetch(`http://localhost:5000/chat/${user2Id}`,{
+        const res = await fetch(`https://messaging-app-zb2w.onrender.com/chat/${user2Id}`,{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

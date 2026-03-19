@@ -13,7 +13,7 @@ export default function SignUp () {
 
         e.preventDefault();
 
-       await fetch("http://localhost:5000/signUp",{
+       await fetch("https://messaging-app-zb2w.onrender.com/signUp",{
             method: "POST",
             headers: {
                 "Content-Type" : "application/json"

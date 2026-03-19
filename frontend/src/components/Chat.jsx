@@ -19,7 +19,7 @@ export default function Chat() {
 
         async function getReceiver() {
             
-            const res = await fetch(`http://localhost:5000/reciever/${rid}`, {
+            const res = await fetch(`https://messaging-app-zb2w.onrender.com/reciever/${rid}`, {
                 method: "GET",
                 headers: {
                     Authorization: token,
@@ -37,7 +37,7 @@ export default function Chat() {
 
         async function getAllMessages() {
 
-            const res = await fetch(`http://localhost:5000/chat/${chatId}`,{
+            const res = await fetch(`https://messaging-app-zb2w.onrender.com/chat/${chatId}`,{
                 method: "GET",
                 headers: {
                     Authorization: token,
@@ -56,7 +56,7 @@ export default function Chat() {
     async function handleMessage(e) {
         e.preventDefault();
 
-        const res = await fetch(`http://localhost:5000/message/${chatId}`,{
+        const res = await fetch(`https://messaging-app-zb2w.onrender.com/message/${chatId}`,{
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

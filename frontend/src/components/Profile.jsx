@@ -16,7 +16,7 @@ export default function Profile () {
     useEffect(() => {
         async function getUserData() {
 
-            const res = await fetch("http://localhost:5000/user", {
+            const res = await fetch("https://messaging-app-zb2w.onrender.com/user", {
                 method: "GET",
                 headers: {
                      "Content-Type": "application/json",
@@ -44,7 +44,7 @@ async function handleSubmit(e) {
 
         e.preventDefault();
 
-        const res = await fetch("http://localhost:5000/edit/user",{
+        const res = await fetch("https://messaging-app-zb2w.onrender.com/edit/user",{
             method: "POST",
             headers: {
                 "Content-Type" : "application/json",
