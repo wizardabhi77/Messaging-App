@@ -40,3 +40,112 @@
 .read-the-docs {
   color: #888;
 }
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  padding: 12px 15px;
+  border: 2px solid #0ff;
+  background: #111;
+  color: #0ff;
+  border-radius: 8px;
+  outline: none;
+  transition: 0.3s;
+}
+
+input:focus {
+  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+}
+
+button {
+  padding: 12px 28px;
+  font-size: 16px;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+button::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(135deg, #ff00cc, #3333ff);
+  z-index: -1;
+  filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+button:hover::before {
+  opacity: 1;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.chat ul {
+  
+  list-style: none;
+  padding: 10px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+  background-color: #2575fc;
+}
+
+.chat li {
+  max-width: 60%;
+  padding: 10px 14px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.4;
+  word-wrap: break-word;
+}
+
+.chat h3 {
+
+  border: 5px purple solid;
+  border-radius: 50%;
+  box-shadow: 8px 10px 10px purple;
+  background-color: white;
+  color: black;
+}
+
+.received {
+  align-self: flex-start;
+  background: #f1f1f1;
+  color: #333;
+  border-bottom-left-radius: 4px;
+}
+
+.sent {
+  align-self: flex-end;
+  background: #4f46e5;
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.chat li {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

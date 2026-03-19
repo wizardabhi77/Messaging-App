@@ -75,23 +75,25 @@ export default function Chat() {
   
     }
     return (
-        <div>
+        <div className="chat">
             <h1>{receiver? receiver.username : "Loading..."}</h1>
             <ul>
                 {messages.map((message)=> {
+
+                    const sentBy = message.userId != rid ? "sent" : "recieved";
                 return (
-                    <li key={message.id}>
+                    <li key={message.id} className={sentBy}>
                         <h3>{message.text}</h3>
                         <p>sent By: {message.userId != rid ? "you" : receiver.username} at {new Date(message.sentAt).toLocaleTimeString()}</p>
                     </li>
                 )
                 })}
-            </ul>
+            </ul> <br />
             
             <form onSubmit={handleMessage}>
                 <input type="text" name="text" value={text} onChange={(e)=> setText(e.target.value)}/>
                 <button>SEND</button>
-            </form>
+            </form> <br />
 
                 <button onClick={()=> navigate("/home")}>BACK TO HOME</button>
         </div>

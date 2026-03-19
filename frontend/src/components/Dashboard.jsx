@@ -13,7 +13,7 @@ export default function Dashboard () {
 
             const token = localStorage.getItem("token");
             
-            const res = await fetch("http://localhost:5000/user/",{
+            const res = await fetch("http://localhost:5000/user",{
                 method: "GET",
                 headers : {
                     "Content-Type": "application/json",
@@ -76,7 +76,7 @@ export default function Dashboard () {
     return (
         <div>
             { userData? 
-            (<div>
+            (<div className='dashboard'>
                 <h1>WELCOME DED DIMAAK {userData.username}</h1>
                 <button onClick={()=> navigate("/profile")}>VIEW PROFILE</button>
                 <ul>

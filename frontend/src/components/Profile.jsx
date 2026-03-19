@@ -1,10 +1,12 @@
 import {useState, useEffect} from 'react';
 
-
+import { useNavigate } from 'react-router-dom';
 
 export default function Profile () {
 
     const token = localStorage.getItem("token");
+
+    const navigate = useNavigate();
 
     const [user, setUser] = useState(null);
     const [state, setState] = useState("view");
@@ -80,7 +82,7 @@ async function handleSubmit(e) {
              }
                 
                 
-           
+             <button onClick={()=> navigate("/home")}>BACK</button>
         </div>
     )
 }

@@ -25,7 +25,14 @@ export default function Login (){
 
         const data = await res.json();
 
+        if (!res.ok) {
+            alert(data.message); // shows "Invalid credentials"
+            return;
+            }
+
         localStorage.setItem("token", data.token);
+
+       
 
         navigate("/home");
 
@@ -34,7 +41,7 @@ export default function Login (){
     return (
         <div>
             <h1>LOGIN TO THE SITE:</h1>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} >
                 <label htmlFor="username">Username:</label>
                 <input type="text" name="username" value={username} onChange={(e)=> setUsername(e.target.value)}/> <br />
                 <label htmlFor="password">Password:</label>
