@@ -17,7 +17,8 @@ export default function Chat() {
 
     useEffect(()=> {
 
-        async function getReceiver() {
+        try {
+             async function getReceiver() {
             
             const res = await fetch(`https://messaging-app-zb2w.onrender.com/reciever/${rid}`, {
                 method: "GET",
@@ -51,6 +52,10 @@ export default function Chat() {
         }
 
         getAllMessages();
+        }catch(error) {
+            console.log(error);
+        }
+       
     }, [chatId, token, rid])
 
     async function handleMessage(e) {
