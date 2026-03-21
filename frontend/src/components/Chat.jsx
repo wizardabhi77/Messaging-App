@@ -89,7 +89,7 @@ export default function Chat() {
                 return (
                     <li key={message.id} className={sentBy}>
                         <h3>{message.text}</h3>
-                        <p>sent By: {message.userId != rid ? "you" : receiver.username} at {new Date(message.sentAt).toLocaleTimeString()}</p>
+                        <p>sent By: {message.userId != rid ? "you" : receiver?.username} at {new Date(message.sentAt).toLocaleTimeString()}</p>
                     </li>
                 )
                 })}
